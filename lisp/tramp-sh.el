@@ -1801,6 +1801,10 @@ and gid of the corresponding user is taken.  Both parameters must be integers."
 
            ;; Now grab the output.
            (with-current-buffer (tramp-get-buffer v)
+             ;; Remove empty line Yves Blusseau Patch
+             (goto-char (point-min))
+             (while (re-search-forward "^\n" nil t)
+               (replace-match "" nil nil))
              (goto-char (point-max))
 
              ;; Check result code, found in last line of output.
