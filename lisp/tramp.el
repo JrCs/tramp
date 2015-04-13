@@ -3166,15 +3166,13 @@ User is always nil."
 		      (setq tramp-temp-buffer-file-name local-copy))
 
 		    ;; We must ensure that `file-coding-system-alist'
-		    ;; matches `local-copy'.  We must also use `visit',
-		    ;; otherwise there might be an error in the
-		    ;; `revert-buffer' function under XEmacs.
+		    ;; matches `local-copy'.
 		    (let ((file-coding-system-alist
 			   (tramp-find-file-name-coding-system-alist
 			    filename local-copy)))
 		      (setq result
 			    (insert-file-contents
-			     local-copy visit beg end replace))))
+			     local-copy nil beg end replace))))
 		(error
 		 (add-hook 'find-file-not-found-functions
 			   `(lambda () (signal ',(car err) ',(cdr err)))
